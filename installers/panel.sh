@@ -47,21 +47,21 @@ MYSQL_USER="${MYSQL_USER:-pterodactyl}"
 MYSQL_PASSWORD="${MYSQL_PASSWORD:-$(gen_passwd 64)}"
 
 # Environment
-timezone="${timezone:-Europe/Stockholm}"
+timezone="Europe/London"
 
 # Assume SSL, will fetch different config if true
-ASSUME_SSL="${ASSUME_SSL:-false}"
-CONFIGURE_LETSENCRYPT="${CONFIGURE_LETSENCRYPT:-false}"
+ASSUME_SSL="true"
+CONFIGURE_LETSENCRYPT="true"
 
 # Firewall
-CONFIGURE_FIREWALL="${CONFIGURE_FIREWALL:-false}"
+CONFIGURE_FIREWALL="true"
 
 # Must be assigned to work, no default values
-email="${email:-}"
-user_email="${user_email:-}"
-user_username="${user_username:-}"
-user_firstname="${user_firstname:-}"
-user_lastname="${user_lastname:-}"
+email="admin@mysticlouds.com"
+user_email="admin@mysticlouds.com"
+user_username="mystical"
+user_firstname="mystical"
+user_lastname="mystical"
 user_password="${user_password:-}"
 
 if [[ -z "${email}" ]]; then
@@ -136,7 +136,7 @@ configure() {
 
   # Fill in environment:setup automatically
   php artisan p:environment:setup \
-    --author="$email" \
+    --author="admin@mysticlouds.com" \
     --url="$app_url" \
     --timezone="$timezone" \
     --cache="redis" \
@@ -160,10 +160,10 @@ configure() {
 
   # Create user account
   php artisan p:user:make \
-    --email="$user_email" \
-    --username="$user_username" \
-    --name-first="$user_firstname" \
-    --name-last="$user_lastname" \
+    --email="admin@mysticlouds.com" \
+    --username="mystical" \
+    --name-first="mystical" \
+    --name-last="mystical" \
     --password="$user_password" \
     --admin=1
 
